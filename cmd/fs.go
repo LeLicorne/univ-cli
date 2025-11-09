@@ -1,32 +1,33 @@
-/*
-Copyright © 2025 NAME HERE <EMAIL ADDRESS>
-
-*/
 package cmd
 
 import (
 	"fmt"
 
+	filesystemcli "example.com/univ-cli/cmd/filesystem-cli"
 	"github.com/spf13/cobra"
 )
 
-// fsCmd represents the fs command
 var fsCmd = &cobra.Command{
-	Use:   "fs",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Use:     "fs",
+	Aliases: []string{"filesystem"},
+	Short:   "Permet de naviguer et manipuler le système de fichiers local.",
+	Long: `La commande 'fs' permet aux utilisateurs de naviguer et de manipuler
+			le système de fichiers local. Elle offre des fonctionnalités telles que la
+			navigation dans les répertoires, la création, la suppression et la modification
+			de fichiers et de dossiers, ainsi que la gestion des permissions et des
+			attributs des fichiers. Cette commande est essentielle pour interagir avec
+			le système de fichiers de manière efficace et sécurisée.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("fs called")
+		fmt.Println("Utilisez une des sous-commandes: ls, cat, cp, mkdir")
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(fsCmd)
+	fsCmd.AddCommand(filesystemcli.LsCmd)
+	fsCmd.AddCommand(filesystemcli.CatCmd)
+	fsCmd.AddCommand(filesystemcli.CpCmd)
+	fsCmd.AddCommand(filesystemcli.MkdirCmd)
 
 	// Here you will define your flags and configuration settings.
 
