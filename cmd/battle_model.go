@@ -30,7 +30,6 @@ type battleModel struct {
 }
 
 func initialBattleModel() battleModel {
-	rand.Seed(time.Now().UnixNano())
 	return battleModel{
 		state:            stateSelectPokemon,
 		availablePokemon: createPokemon(),
