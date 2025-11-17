@@ -11,6 +11,7 @@ import (
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
+	"github.com/guptarohit/asciigraph"
 	"github.com/spf13/cobra"
 )
 
@@ -95,6 +96,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				return m, nil
 			case "message":
 				return m, nil
+			case "custom":
+				return m, nil
 			case "quit":
 				m.quitting = true
 				return m, tea.Quit
@@ -116,6 +119,11 @@ func (m model) View() string {
 			output = fmt.Sprintf("\n🕐 Date et heure: %s\n\nAppuyez sur 'q' pour revenir au menu", time.Now().Format("02/01/2006 15:04:05"))
 		case "message":
 			output = "\n👋 Bienvenue dans univ-cli !\n\nCette application vous permet de naviguer et manipuler le système de fichiers.\n\nAppuyez sur 'q' pour revenir au menu"
+		case "custom":
+			data := []float64{3, 4, 9, 6, 2, 4, 5, 8, 5, 10, 2, 7, 2, 5, 6}
+			graph := asciigraph.Plot(data, asciigraph.Height(10), asciigraph.Caption("Exemple de graphique ASCII"), asciigraph.SeriesColors(asciigraph.Red))
+
+			output = graph + "\n\nAppuyez sur 'q' pour revenir au menu"
 		}
 		return output
 	}
@@ -131,6 +139,7 @@ func initialModel() model {
 	items := []list.Item{
 		item{"Afficher la date et l'heure actuelles", "datetime"},
 		item{"Afficher un message de bienvenue", "message"},
+		item{"Afficher le custom", "custom"},
 		item{"Quitter l'application", "quit"},
 	}
 
